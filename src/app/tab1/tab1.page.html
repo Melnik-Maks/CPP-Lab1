@@ -1,0 +1,30 @@
+<app-my-header
+  [fullName]="fullName"
+  [group]="group"
+  [variant]="variant">
+</app-my-header>
+
+<ion-content class="ion-padding">
+  <p>
+    Якщо хоч одне з трьох чисел парне — знайти куб суми.
+    Інакше — суму кубів.
+  </p>
+
+  <ion-item>
+    <ion-input type="number" placeholder="a" [(ngModel)]="a"></ion-input>
+  </ion-item>
+
+  <ion-item>
+    <ion-input type="number" placeholder="b" [(ngModel)]="b"></ion-input>
+  </ion-item>
+
+  <ion-item>
+    <ion-input type="number" placeholder="c" [(ngModel)]="c"></ion-input>
+  </ion-item>
+
+  <ion-button expand="block" (click)="calculate()">
+    Обчислити
+  </ion-button>
+
+  <p>Результат: {{ result }}</p>
+</ion-content>

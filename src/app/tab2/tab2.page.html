@@ -1,0 +1,33 @@
+<app-my-header
+  [fullName]="fullName"
+  [group]="group"
+  [variant]="variant">
+</app-my-header>
+
+<ion-content class="ion-padding">
+  <p>
+    Знайти суму парних чисел на проміжку [a, b] та вивести ці числа.
+  </p>
+
+  <ion-item>
+    <ion-input type="number" placeholder="a" [(ngModel)]="a"></ion-input>
+  </ion-item>
+
+  <ion-item>
+    <ion-input type="number" placeholder="b" [(ngModel)]="b"></ion-input>
+  </ion-item>
+
+  <ion-button expand="block" (click)="calculate()">
+    Обчислити
+  </ion-button>
+
+  <p>Парні числа:</p>
+
+  <p>
+    @for (x of evens; track $index) {
+      {{ x }}@if (!$last) {, }
+    }
+  </p>
+
+  <p>Сума: {{ sum }}</p>
+</ion-content>

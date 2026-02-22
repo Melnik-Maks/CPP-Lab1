@@ -1,0 +1,35 @@
+<app-my-header
+  [fullName]="fullName"
+  [group]="group"
+  [variant]="variant">
+</app-my-header>
+
+<ion-content class="ion-padding">
+  <p>
+    Згенерувати матрицю NxN та виділити кольором усі парні від’ємні елементи.
+  </p>
+
+  <ion-item>
+    <ion-input type="number" placeholder="N" [(ngModel)]="n"></ion-input>
+  </ion-item>
+
+  <ion-button expand="block" (click)="generate()">
+    Згенерувати
+  </ion-button>
+
+  <div class="matrix-wrapper">
+    <div class="matrix">
+      @for (row of matrix; track $index) {
+        <div class="row">
+          @for (x of row; track $index) {
+            <span
+              class="cell"
+              [class.bad]="isEvenNegative(x)">
+              {{ x }}
+            </span>
+          }
+        </div>
+      }
+    </div>
+  </div>
+</ion-content>
