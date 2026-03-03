@@ -1,0 +1,77 @@
+<app-my-header
+  [fullName]="fullName"
+  [group]="group"
+  [variant]="variant">
+</app-my-header>
+
+<ion-content class="ion-padding">
+
+  <p>
+    Варіант 9: Зчитати дисципліни з JSON, згрупувати по викладачам
+    та побудувати графік кількості дисциплін у кожного викладача.
+  </p>
+
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Завантаження JSON</ion-card-title>
+    </ion-card-header>
+
+    <ion-card-content>
+
+      <ion-item>
+        <ion-input
+          placeholder="URL JSON"
+          [(ngModel)]="dataUrl">
+        </ion-input>
+      </ion-item>
+
+      <ion-button expand="block" (click)="loadData()">
+        Зчитати
+      </ion-button>
+
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Графік</ion-card-title>
+    </ion-card-header>
+
+    <ion-card-content>
+      <div style="height:300px">
+        <canvas #chartCanvas></canvas>
+      </div>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card>
+  <ion-card-header>
+    <ion-card-title>Групування по викладачам</ion-card-title>
+  </ion-card-header>
+
+  <ion-card-content>
+    <div class="group-list">
+      @for (g of grouped; track $index) {
+        <div class="teacher-card">
+          <div class="teacher-head">
+            <div class="teacher-name">{{ g.teacherName }}</div>
+            <div class="teacher-badge">{{ g.count }}</div>
+          </div>
+
+          <div class="teacher-subtitle">Дисципліни</div>
+
+          <div class="subject-list">
+            @for (s of g.subjects; track $index) {
+              <div class="subject-pill">
+                <div class="subject-title">{{ s.title }}</div>
+                <div class="subject-dept">{{ s.department }}</div>
+              </div>
+            }
+          </div>
+        </div>
+      }
+    </div>
+  </ion-card-content>
+</ion-card>
+
+</ion-content>

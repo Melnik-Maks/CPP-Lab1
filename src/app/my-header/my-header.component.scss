@@ -1,4 +1,9 @@
+ion-toolbar {
+  --background: linear-gradient(90deg, #1e3c72, #2a5298);
+  --color: white;
+  font-weight: 600;
+}
+
 ion-title {
-  font-size: 14px;
-  white-space: normal;
+  font-size: 15px;
 }

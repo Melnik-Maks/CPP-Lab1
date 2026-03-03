@@ -1,17 +1,14 @@
-ion-tab-bar {
-  --background: rgb(248, 248, 248);
-  border-top: 1px solid rgb(204, 204, 204);
+p {
+  font-size: 14px;
+  line-height: 1.4;
+  margin-bottom: 12px;
 }
 
-ion-tab-button {
-  --color: rgb(102, 102, 102);
-  --color-selected: rgb(56, 128, 255);
-}
-
-ion-tab-button ion-icon {
-  font-size: 22px;
-}
-
-ion-tab-button ion-label {
-  font-size: 12px;
+.result-box {
+  margin-top: 12px;
+  padding: 10px;
+  border-radius: 12px;
+  background: #ffffff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08);
+  font-weight: 600;
 }

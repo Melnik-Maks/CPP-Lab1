@@ -35,3 +35,29 @@
 /* @import "@ionic/angular/css/palettes/dark.always.css"; */
 /* @import "@ionic/angular/css/palettes/dark.class.css"; */
 @import '@ionic/angular/css/palettes/dark.system.css';
+
+
+
+ion-content {
+  --background: linear-gradient(135deg, #f5f7fa, #e4ecf7);
+}
+
+ion-button {
+  --border-radius: 12px;
+  --background: linear-gradient(90deg, #4e73df, #224abe);
+  --box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+
+ion-item {
+  --border-radius: 10px;
+  margin-bottom: 10px;
+  --background: #ffffff;
+  --box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+}
+
+ion-card {
+  border-radius: 16px;
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.1);
+}
