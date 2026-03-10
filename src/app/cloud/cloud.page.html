@@ -62,7 +62,7 @@
 
           <div class="subject-list">
             @for (s of g.subjects; track $index) {
-              <div class="subject-pill">
+              <div class="subject-pill" [style.border-left]="'4px solid ' + getDepartmentColor(s.department)">
                 <div class="subject-title">{{ s.title }}</div>
                 <div class="subject-dept">{{ s.department }}</div>
               </div>

@@ -34,4 +34,7 @@ export class Tab3Page {
   isEvenNegative(x: number) {
     return x < 0 && x % 2 === 0;
   }
+  isEvenPositive(x: number){
+    return x < 0 && x % 2 != 0
+  }
 }

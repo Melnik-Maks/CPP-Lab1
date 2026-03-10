@@ -24,7 +24,8 @@
           @for (x of row; track $index) {
             <span
               class="cell"
-              [class.bad]="isEvenNegative(x)">
+              [class.bad]="isEvenNegative(x)"
+              [class.notbad]="isEvenPositive(x)">
               {{ x }}
             </span>
           }

@@ -119,4 +119,23 @@ export class CloudPage {
       }
     });
   }
+  getDepartmentColor(department: string): string {
+
+    const colors = [
+      '#4e73df',
+      '#1cc88a',
+      '#36b9cc',
+      '#f6c23e',
+      '#e74a3b',
+      '#6f42c1'
+    ];
+
+    let index = 0;
+
+    for (let i = 0; i < department.length; i++) {
+      index += department.charCodeAt(i);
+    }
+
+    return colors[index % colors.length];
+  }
 }

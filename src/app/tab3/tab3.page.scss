@@ -1,7 +1,7 @@
 .matrix-wrapper {
   margin-top: 20px;
   display: flex;
-  justify-content: center;   /* по горизонталі */
+  justify-content: center;
   align-items: center; 
 }
 
@@ -27,10 +27,12 @@
   border-radius: 6px;
   background: #eef2f7;
   font-size: 13px;
+  
 }
 
 .cell.bad {
   background: #ff4d4f;
-  color: white;
-  font-weight: bold;
+}
+.cell.notbad {
+  background: #54c632;
 }
