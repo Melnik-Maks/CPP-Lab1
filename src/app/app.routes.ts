@@ -9,4 +9,14 @@ export const routes: Routes = [
     path: 'cloud',
     loadComponent: () => import('./cloud/cloud.page').then( m => m.CloudPage)
   },
+  {
+    path: 'abstract-class',
+    loadComponent: () => import('./abstract-class/abstract-class.page').then( m => m.AbstractClassPage)
+  },
+  {
+    path: 'abstract-class',
+    loadComponent: () =>
+      import('./abstract-class/abstract-class.page').then((m) => m.AbstractClassPage),
+  },
+
 ];

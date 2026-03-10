@@ -1,0 +1,70 @@
+<app-my-header
+  [fullName]="fullName"
+  [group]="group"
+  [variant]="variant">
+</app-my-header>
+
+<ion-content class="ion-padding">
+  <p class="task">Батьківський клас — Водний транспорт.
+    Нащадки: Катер і Лодка.
+    Необхідно зчитати дані з JSON, вивести параметри об'єктів через поліморфний масив
+    та знайти n найшвидших транспортів.
+  </p>
+
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Початкові дані</ion-card-title>
+    </ion-card-header>
+
+    <ion-card-content>
+      <ion-item>
+        <ion-input
+          placeholder="URL JSON"
+          [(ngModel)]="dataUrl">
+        </ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-input
+          type="number"
+          placeholder="Введіть n"
+          [(ngModel)]="n">
+        </ion-input>
+      </ion-item>
+
+      <ion-button expand="block" (click)="loadData()">
+        Зчитати
+      </ion-button>
+
+      <p class="status-box">{{ statusText }}</p>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Усі транспорти</ion-card-title>
+    </ion-card-header>
+
+    <ion-card-content>
+      @for (item of transports; track $index) {
+        <div class="transport-card">
+          {{ item.displayInfo() }}
+        </div>
+      }
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>{{ n }} найшвидших транспортів</ion-card-title>
+    </ion-card-header>
+
+    <ion-card-content>
+      @for (item of topFastest; track $index) {
+        <div class="fast-card">
+          {{ item.displayInfo() }}
+        </div>
+      }
+    </ion-card-content>
+  </ion-card>
+</ion-content>
