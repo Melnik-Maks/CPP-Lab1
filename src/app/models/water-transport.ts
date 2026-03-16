@@ -8,6 +8,6 @@ export abstract class WaterTransport {
   getSpeed(): number {
     return this.speed;
   }
-
+  
   abstract displayInfo(): string;
 }

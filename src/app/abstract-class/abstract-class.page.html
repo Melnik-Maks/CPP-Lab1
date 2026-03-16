@@ -46,11 +46,11 @@
     </ion-card-header>
 
     <ion-card-content>
-      @for (item of transports; track $index) {
-        <div class="transport-card">
+       <div *ngFor="let item of transports; let i = index">
+        <div class="transport-card" [ngStyle]="{ 'border-left': isSlowest(item) ? '4px solid red' : '4px solid #4e73df' }">
           {{ item.displayInfo() }}
         </div>
-      }
+      </div>
     </ion-card-content>
   </ion-card>
 
