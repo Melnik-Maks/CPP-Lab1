@@ -8,9 +8,13 @@ export class Boat extends WaterTransport {
     public isRowing: boolean
   ) {
     super(name, speed, capacity);
+
+    if (typeof isRowing !== 'boolean') {
+      throw new Error('Ознака веслового човна має бути логічним значенням.');
+    }
   }
 
   override displayInfo(): string {
-    return `Лодка: ${this.name}, швидкість: ${this.speed} км/год, місткість: ${this.capacity}, веслова: ${this.isRowing ? 'так' : 'ні'}`;
+    return `Човен: ${this.name}, швидкість: ${this.speed} км/год, місткість: ${this.capacity}, весловий: ${this.isRowing ? 'так' : 'ні'}`;
   }
 }

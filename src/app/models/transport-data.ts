@@ -1,4 +1,4 @@
-export type TransportType = 'motorBoat' | 'boat';
+export type TransportType = 'motorBoat' | 'boat' | 'yacht';
 
 export interface TransportData {
   type: TransportType;
@@ -7,4 +7,5 @@ export interface TransportData {
   capacity: number;
   engineType?: string;
   isRowing?: boolean;
+  hasCabins?: boolean;
 }

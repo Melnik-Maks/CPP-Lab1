@@ -8,6 +8,14 @@ export class MotorBoat extends WaterTransport {
     public engineType: string
   ) {
     super(name, speed, capacity);
+
+    const normalizedEngineType = engineType.trim();
+
+    if (!normalizedEngineType) {
+      throw new Error('Тип двигуна катера не може бути порожнім.');
+    }
+
+    this.engineType = normalizedEngineType;
   }
 
   override displayInfo(): string {
