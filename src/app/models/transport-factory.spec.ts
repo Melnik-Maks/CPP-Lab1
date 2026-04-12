@@ -48,7 +48,7 @@ describe('TransportFactory', () => {
       type: 'boat',
       name: 'Простий',
       speed: 10,
-      capacity: 2
+      capacity: 11
     }) as Boat;
 
     const yacht = TransportFactory.create({

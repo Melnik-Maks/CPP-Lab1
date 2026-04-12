@@ -15,7 +15,15 @@ export abstract class WaterTransport {
     }
 
     if (capacity <= 0) {
-      throw new Error('Місткість транспорту має бути більшою за 0.');
+      throw new Error('Місткість транспорту не може бути відємною.');
+    }
+
+    if (capacity < 3) {
+      throw new Error('Місткість транспорту має бути більшою за 3.');
+    }
+    
+    if (capacity > 15) {
+      throw new Error('Місткість транспорту має бути меншою за 15.');
     }
 
     this.name = normalizedName;

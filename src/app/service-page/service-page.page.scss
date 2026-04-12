@@ -1,0 +1,26 @@
+.task-text {
+  margin-bottom: 16px;
+  line-height: 1.5;
+}
+
+.status-text {
+  margin-top: 12px;
+  font-weight: 600;
+}
+
+.chart-wrapper {
+  position: relative;
+  min-height: 320px;
+}
+
+.result-row {
+  padding: 12px 0;
+  border-bottom: 1px solid #dfe7ef;
+  font-family: 'Courier New', monospace;
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
+.result-row:last-child {
+  border-bottom: none;
+}

@@ -1,0 +1,88 @@
+<app-my-header
+  [fullName]="fullName"
+  [group]="group"
+  [variant]="variant">
+</app-my-header>
+
+<ion-content class="ion-padding">
+  <p class="task-text">
+    Лабораторна робота №5. Дослідження функції <strong>arccos(x)</strong>
+    методами табулювання, ряду та рекурсії з побудовою спільного графіка.
+  </p>
+
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Параметри обчислення</ion-card-title>
+    </ion-card-header>
+
+    <ion-card-content>
+      <ion-item>
+        <ion-input
+          type="number"
+          label="Початок x"
+          labelPlacement="stacked"
+          [(ngModel)]="xStart">
+        </ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-input
+          type="number"
+          label="Кінець x"
+          labelPlacement="stacked"
+          [(ngModel)]="xEnd">
+        </ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-input
+          type="number"
+          label="Крок"
+          labelPlacement="stacked"
+          [(ngModel)]="step">
+        </ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-input
+          type="number"
+          label="Точність epsilon"
+          labelPlacement="stacked"
+          [(ngModel)]="epsilon">
+        </ion-input>
+      </ion-item>
+
+      <ion-button expand="block" (click)="calculate()">
+        Обчислити
+      </ion-button>
+
+      <p class="status-text">{{ statusText }}</p>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Графік порівняння</ion-card-title>
+    </ion-card-header>
+
+    <ion-card-content>
+      <div class="chart-wrapper">
+        <canvas #chartCanvas></canvas>
+      </div>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Результати обчислень</ion-card-title>
+    </ion-card-header>
+
+    <ion-card-content>
+      <ion-list>
+        @for (line of comparisonLines; track $index) {
+          <div class="result-row">{{ line }}</div>
+        }
+      </ion-list>
+    </ion-card-content>
+  </ion-card>
+</ion-content>
