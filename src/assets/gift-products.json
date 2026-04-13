@@ -1,0 +1,34 @@
+[
+  {
+    "id": "set-1",
+    "type": "giftSet",
+    "title": "Набір «Теплі побажання»",
+    "basePrice": 720,
+    "itemCount": 4,
+    "theme": "затишок"
+  },
+  {
+    "id": "card-1",
+    "type": "postcard",
+    "title": "Листівка «Для найрідніших»",
+    "basePrice": 55,
+    "occasion": "день народження",
+    "message": "Нехай кожен день дарує посмішки!"
+  },
+  {
+    "id": "souvenir-1",
+    "type": "souvenir",
+    "title": "Сувенірна чашка «Київ»",
+    "basePrice": 240,
+    "material": "кераміка",
+    "isFragile": true
+  },
+  {
+    "id": "cert-1",
+    "type": "giftCertificate",
+    "title": "Подарунковий сертифікат 500 грн",
+    "basePrice": 500,
+    "recipientName": "Для друга",
+    "deliveryType": "email"
+  }
+]

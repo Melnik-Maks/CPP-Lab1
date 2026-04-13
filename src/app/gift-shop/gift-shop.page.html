@@ -1,0 +1,138 @@
+<app-my-header
+  [fullName]="fullName"
+  [group]="group"
+  [variant]="variant">
+</app-my-header>
+
+<ion-content class="ion-padding">
+  <p class="intro-text">
+    Лабораторна робота №6. Магазин подарунків з реалізацією інтерфейсів і
+    принципів SOLID. Доступні товари: подарункові набори, листівки, сувеніри
+    та розширення системи без зміни фабрики — подарункові сертифікати.
+  </p>
+
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Завантаження товарів</ion-card-title>
+    </ion-card-header>
+
+    <ion-card-content>
+      <ion-item>
+        <ion-input
+          label="Джерело JSON"
+          labelPlacement="stacked"
+          [(ngModel)]="dataUrl">
+        </ion-input>
+      </ion-item>
+
+      <ion-button expand="block" (click)="loadProducts()">
+        Завантажити товари
+      </ion-button>
+
+      <p class="status-text">{{ statusText }}</p>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Доступні типи упаковки</ion-card-title>
+    </ion-card-header>
+
+    <ion-card-content>
+      @for (packaging of packagingOptions; track packaging.code) {
+        <div class="packaging-row">
+          <div class="packaging-title">{{ packaging.title }}</div>
+          <div class="packaging-description">{{ packaging.description }}</div>
+        </div>
+      }
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Каталог подарунків</ion-card-title>
+    </ion-card-header>
+
+    <ion-card-content>
+      @if (products.length === 0) {
+        <p class="empty-text">Поки що товари не завантажено.</p>
+      }
+
+      @for (product of products; track product.id) {
+        <div class="product-card">
+          <div class="product-head">
+            <div>
+              <div class="product-title">{{ product.title }}</div>
+              <div class="product-price">Базова ціна: {{ formatPrice(product.basePrice) }}</div>
+            </div>
+
+            <ion-badge color="primary">{{ product.categoryLabel }}</ion-badge>
+          </div>
+
+          <div class="detail-list">
+            @for (detail of product.getDetails(); track $index) {
+              <div class="detail-item">{{ detail }}</div>
+            }
+          </div>
+
+          <ion-item>
+            <ion-select
+              label="Тип упаковки"
+              labelPlacement="stacked"
+              [(ngModel)]="selectedPackaging[product.id]">
+              @for (packaging of packagingOptions; track packaging.code) {
+                <ion-select-option [value]="packaging.code">
+                  {{ packaging.title }}
+                </ion-select-option>
+              }
+            </ion-select>
+          </ion-item>
+
+          <ion-button expand="block" (click)="addToOrder(product)">
+            Додати до списку
+          </ion-button>
+        </div>
+      }
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Сформований список</ion-card-title>
+    </ion-card-header>
+
+    <ion-card-content>
+      @if (orderItems.length === 0) {
+        <p class="empty-text">Список замовлення ще не сформовано.</p>
+      }
+
+      <ion-list>
+        @for (item of orderItems; track item.lineId) {
+          <div class="order-row">
+            <div class="order-head">
+              <div>
+                <div class="order-title">{{ item.title }}</div>
+                <div class="order-meta">{{ item.categoryLabel }} | {{ item.packagingTitle }}</div>
+              </div>
+
+              <ion-button size="small" color="danger" (click)="removeFromOrder(item.lineId)">
+                Видалити
+              </ion-button>
+            </div>
+
+            <div class="order-note">{{ item.note }}</div>
+            <div class="order-price">
+              Вартість упаковки: {{ formatPrice(item.packagingPrice) }} | Разом: {{ formatPrice(item.totalPrice) }}
+            </div>
+          </div>
+        }
+      </ion-list>
+
+      @if (orderItems.length > 0) {
+        <div class="total-row">
+          Загальна сума списку: {{ formatPrice(getTotalPrice()) }}
+        </div>
+      }
+    </ion-card-content>
+  </ion-card>
+</ion-content>
