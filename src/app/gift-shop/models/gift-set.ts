@@ -7,7 +7,8 @@ export class GiftSet extends BaseGiftProduct implements GiftProduct {
     title: string,
     basePrice: number,
     public readonly itemCount: number,
-    public readonly theme: string
+    public readonly theme: string,
+    public readonly itemNames: string[] = []
   ) {
     super(id, 'giftSet', title, 'Подарунковий набір', basePrice);
 
@@ -21,9 +22,15 @@ export class GiftSet extends BaseGiftProduct implements GiftProduct {
   }
 
   getDetails(): string[] {
-    return [
+    const details = [
       `Елементів у наборі: ${this.itemCount}`,
       `Тематика: ${this.theme}`
     ];
+
+    if (this.itemNames.length) {
+      details.push(`Склад набору: ${this.itemNames.join(', ')}`);
+    }
+
+    return details;
   }
 }

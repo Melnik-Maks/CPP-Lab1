@@ -12,6 +12,8 @@ import { GiftOrderService } from './services/gift-order.service';
 import { GiftPackagingService } from './services/gift-packaging.service';
 import { GiftProductFactoryService } from './services/gift-product-factory.service';
 import { LocalGiftJsonDataSourceService } from './services/local-gift-json-data-source.service';
+import { GiftPriceValidatorService } from './validators/gift-price-validator.service';
+import { GiftTitleValidatorService } from './validators/gift-title-validator.service';
 
 export function provideGiftShop(): Provider[] {
   return [
@@ -19,6 +21,8 @@ export function provideGiftShop(): Provider[] {
     GiftOrderService,
     GiftPackagingService,
     GiftProductFactoryService,
+    GiftPriceValidatorService,
+    GiftTitleValidatorService,
     { provide: GIFT_DATA_SOURCE, useClass: LocalGiftJsonDataSourceService },
     { provide: GIFT_PRODUCT_CREATORS, useClass: GiftSetCreator, multi: true },
     { provide: GIFT_PRODUCT_CREATORS, useClass: PostcardCreator, multi: true },

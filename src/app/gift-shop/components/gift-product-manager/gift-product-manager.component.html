@@ -1,0 +1,42 @@
+@if (products.length === 0) {
+  <p class="empty-text">Поки що немає товарів для перегляду та редагування.</p>
+}
+
+@for (product of products; track product.id) {
+  <div class="manager-row">
+    <div class="manager-head">
+      <div>
+        <div class="manager-title">{{ product.title }}</div>
+        <div class="manager-meta">{{ product.id }} | {{ product.basePrice.toFixed(2) }} грн</div>
+      </div>
+
+      <ion-badge color="primary">{{ product.categoryLabel }}</ion-badge>
+    </div>
+
+    <div class="manager-details">
+      @for (detail of product.getDetails(); track $index) {
+        <div>{{ detail }}</div>
+      }
+    </div>
+
+    @if (editingProductId === product.id) {
+      <app-gift-product-form
+        mode="edit"
+        [products]="products"
+        [initialProduct]="product"
+        (productSaved)="saveEdit($event)"
+        (formCancelled)="cancelEdit()">
+      </app-gift-product-form>
+    } @else {
+      <div class="manager-actions">
+        <ion-button size="small" fill="outline" (click)="startEdit(product.id)">
+          Редагувати
+        </ion-button>
+
+        <ion-button size="small" color="danger" fill="outline" (click)="deleteProduct(product.id)">
+          Видалити
+        </ion-button>
+      </div>
+    }
+  </div>
+}

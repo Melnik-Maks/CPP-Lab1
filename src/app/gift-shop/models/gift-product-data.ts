@@ -5,6 +5,7 @@ export interface GiftProductData {
   basePrice: number;
   itemCount?: number;
   theme?: string;
+  itemNames?: string[];
   occasion?: string;
   message?: string;
   material?: string;

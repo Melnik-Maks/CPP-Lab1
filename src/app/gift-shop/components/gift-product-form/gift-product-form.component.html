@@ -1,0 +1,178 @@
+<form class="gift-form" [formGroup]="form" (ngSubmit)="submit()">
+  <div class="form-grid">
+    <ion-item>
+      <ion-input
+        label="Код товару"
+        labelPlacement="stacked"
+        formControlName="id"
+        [readonly]="isEditMode">
+      </ion-input>
+    </ion-item>
+
+    @if (hasError('id')) {
+      <div class="field-error">Код обов'язковий: латинські літери, цифри або дефіс.</div>
+    }
+
+    <ion-item>
+      <ion-select
+        label="Тип товару"
+        labelPlacement="stacked"
+        formControlName="type">
+        @for (type of productTypes; track type.value) {
+          <ion-select-option [value]="type.value">{{ type.label }}</ion-select-option>
+        }
+      </ion-select>
+    </ion-item>
+
+    <ion-item>
+      <ion-input
+        label="Назва"
+        labelPlacement="stacked"
+        formControlName="title">
+      </ion-input>
+    </ion-item>
+
+    @if (hasError('title')) {
+      <div class="field-error">Назва має бути унікальною та містити щонайменше 3 символи.</div>
+    }
+
+    <ion-item>
+      <ion-input
+        type="number"
+        label="Базова ціна"
+        labelPlacement="stacked"
+        formControlName="basePrice">
+      </ion-input>
+    </ion-item>
+
+    @if (hasError('basePrice')) {
+      <div class="field-error">Ціна має відповідати мінімуму для вибраного типу товару.</div>
+    }
+
+    @if (currentType === 'giftSet') {
+      <ion-item>
+        <ion-input
+          label="Тематика набору"
+          labelPlacement="stacked"
+          formControlName="theme">
+        </ion-input>
+      </ion-item>
+
+      @if (hasError('theme')) {
+        <div class="field-error">Тематика набору є обов'язковою.</div>
+      }
+
+      <div class="array-block" formArrayName="itemNames">
+        <div class="array-title">Склад подарункового набору</div>
+
+        @for (itemControl of itemNames.controls; track $index) {
+          <div class="array-row">
+            <ion-item>
+              <ion-input
+                [label]="'Елемент ' + ($index + 1)"
+                labelPlacement="stacked"
+                [formControlName]="$index">
+              </ion-input>
+            </ion-item>
+
+            <ion-button
+              type="button"
+              color="danger"
+              fill="outline"
+              [disabled]="itemNames.length === 1"
+              (click)="removeSetItem($index)">
+              Видалити
+            </ion-button>
+          </div>
+
+          @if (hasSetItemError($index)) {
+            <div class="field-error">Назва елемента має містити щонайменше 2 символи.</div>
+          }
+        }
+
+        <ion-button type="button" fill="outline" (click)="addSetItem()">
+          Додати елемент набору
+        </ion-button>
+      </div>
+    }
+
+    @if (currentType === 'postcard') {
+      <ion-item>
+        <ion-input
+          label="Подія"
+          labelPlacement="stacked"
+          formControlName="occasion">
+        </ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-textarea
+          label="Текст листівки"
+          labelPlacement="stacked"
+          formControlName="message">
+        </ion-textarea>
+      </ion-item>
+
+      @if (hasError('occasion') || hasError('message')) {
+        <div class="field-error">Для листівки потрібно вказати подію та текст повідомлення.</div>
+      }
+    }
+
+    @if (currentType === 'souvenir') {
+      <ion-item>
+        <ion-input
+          label="Матеріал"
+          labelPlacement="stacked"
+          formControlName="material">
+        </ion-input>
+      </ion-item>
+
+      @if (hasError('material')) {
+        <div class="field-error">Матеріал має містити тільки літери, пробіли або дефіс.</div>
+      }
+
+      <ion-item>
+        <ion-checkbox formControlName="isFragile">
+          Крихкий товар
+        </ion-checkbox>
+      </ion-item>
+    }
+
+    @if (currentType === 'giftCertificate') {
+      <ion-item>
+        <ion-input
+          label="Отримувач"
+          labelPlacement="stacked"
+          formControlName="recipientName">
+        </ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-select
+          label="Спосіб доставки"
+          labelPlacement="stacked"
+          formControlName="deliveryType">
+          @for (deliveryType of deliveryTypes; track deliveryType) {
+            <ion-select-option [value]="deliveryType">{{ deliveryType }}</ion-select-option>
+          }
+        </ion-select>
+      </ion-item>
+
+      @if (hasError('recipientName') || hasError('deliveryType')) {
+        <div class="field-error">Для сертифіката потрібно вказати отримувача та спосіб доставки.</div>
+      }
+    }
+  </div>
+
+  <div class="form-actions">
+    <ion-button type="submit">
+      {{ isEditMode ? 'Зберегти зміни' : 'Додати товар' }}
+    </ion-button>
+
+    @if (isEditMode) {
+      <ion-button type="button" fill="outline" color="medium" (click)="cancel()">
+        Скасувати
+      </ion-button>
+    }
+  </div>
+</form>

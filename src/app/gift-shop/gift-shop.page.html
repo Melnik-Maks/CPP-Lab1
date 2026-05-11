@@ -50,6 +50,20 @@
 
   <ion-card>
     <ion-card-header>
+      <ion-card-title>Додавання нового товару</ion-card-title>
+    </ion-card-header>
+
+    <ion-card-content>
+      <app-gift-product-form
+        mode="add"
+        [products]="products"
+        (productSaved)="addProduct($event)">
+      </app-gift-product-form>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card>
+    <ion-card-header>
       <ion-card-title>Каталог подарунків</ion-card-title>
     </ion-card-header>
 
@@ -93,6 +107,20 @@
           </ion-button>
         </div>
       }
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Перегляд та редагування товарів</ion-card-title>
+    </ion-card-header>
+
+    <ion-card-content>
+      <app-gift-product-manager
+        [products]="products"
+        (productUpdated)="updateProduct($event)"
+        (productDeleted)="deleteProduct($event)">
+      </app-gift-product-manager>
     </ion-card-content>
   </ion-card>
 

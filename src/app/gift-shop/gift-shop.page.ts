@@ -15,13 +15,17 @@ import {
   IonSelectOption
 } from '@ionic/angular/standalone';
 import { MyHeaderComponent } from '../my-header/my-header.component';
+import { GiftProductFormComponent } from './components/gift-product-form/gift-product-form.component';
+import { GiftProductManagerComponent } from './components/gift-product-manager/gift-product-manager.component';
 import { GiftProduct } from './contracts/gift-product.interface';
 import { PackagingStrategy } from './contracts/packaging-strategy.interface';
 import { GiftOrderItem } from './models/gift-order-item';
+import { GiftProductData } from './models/gift-product-data';
 import { provideGiftShop } from './gift-shop.providers';
 import { GiftCatalogService } from './services/gift-catalog.service';
 import { GiftOrderService } from './services/gift-order.service';
 import { GiftPackagingService } from './services/gift-packaging.service';
+import { GiftProductFactoryService } from './services/gift-product-factory.service';
 
 @Component({
   selector: 'app-gift-shop',
@@ -40,6 +44,8 @@ import { GiftPackagingService } from './services/gift-packaging.service';
     IonSelect,
     IonSelectOption,
     FormsModule,
+    GiftProductFormComponent,
+    GiftProductManagerComponent,
     MyHeaderComponent
   ],
   providers: [provideGiftShop()],
@@ -61,7 +67,8 @@ export class GiftShopPage {
   constructor(
     private readonly catalogService: GiftCatalogService,
     private readonly packagingService: GiftPackagingService,
-    private readonly orderService: GiftOrderService
+    private readonly orderService: GiftOrderService,
+    private readonly productFactory: GiftProductFactoryService
   ) {
     this.packagingOptions = this.packagingService.getAvailableStrategies();
   }
@@ -94,6 +101,46 @@ export class GiftShopPage {
     } catch (error: any) {
       this.statusText = 'Помилка: ' + (error?.message ?? error);
     }
+  }
+
+  addProduct(data: GiftProductData): void {
+    if (this.products.some((product) => product.id === data.id)) {
+      this.statusText = `Помилка: товар із кодом "${data.id}" уже існує.`;
+      return;
+    }
+
+    try {
+      const product = this.productFactory.createProduct(data);
+      const defaultPackagingCode = this.packagingOptions[0]?.code ?? '';
+
+      this.products = [...this.products, product];
+      this.selectedPackaging = {
+        ...this.selectedPackaging,
+        [product.id]: defaultPackagingCode
+      };
+      this.statusText = `Додано новий товар "${product.title}".`;
+    } catch (error: any) {
+      this.statusText = 'Помилка: ' + (error?.message ?? error);
+    }
+  }
+
+  updateProduct(data: GiftProductData): void {
+    try {
+      const product = this.productFactory.createProduct(data);
+      this.products = this.products.map((item) => (item.id === product.id ? product : item));
+      this.statusText = `Оновлено дані товару "${product.title}".`;
+    } catch (error: any) {
+      this.statusText = 'Помилка: ' + (error?.message ?? error);
+    }
+  }
+
+  deleteProduct(productId: string): void {
+    this.products = this.products.filter((product) => product.id !== productId);
+    this.orderItems = this.orderItems.filter((item) => item.productId !== productId);
+
+    const { [productId]: _removedPackaging, ...selectedPackaging } = this.selectedPackaging;
+    this.selectedPackaging = selectedPackaging;
+    this.statusText = 'Товар видалено з каталогу та сформованого списку.';
   }
 
   removeFromOrder(lineId: string): void {

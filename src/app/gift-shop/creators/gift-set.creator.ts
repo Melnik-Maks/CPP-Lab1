@@ -12,8 +12,9 @@ export class GiftSetCreator implements GiftProductCreator {
       data.id,
       data.title,
       data.basePrice,
-      data.itemCount ?? 0,
-      data.theme ?? ''
+      data.itemCount ?? data.itemNames?.length ?? 0,
+      data.theme ?? '',
+      data.itemNames ?? []
     );
   }
 }

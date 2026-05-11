@@ -1,0 +1,41 @@
+.empty-text {
+  color: #52606d;
+}
+
+.manager-row {
+  padding: 14px 0;
+  border-bottom: 1px solid #dde6ed;
+}
+
+.manager-row:last-child {
+  border-bottom: none;
+}
+
+.manager-head {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  align-items: flex-start;
+}
+
+.manager-title {
+  font-weight: 700;
+}
+
+.manager-meta,
+.manager-details {
+  margin-top: 6px;
+  color: #52606d;
+}
+
+.manager-details {
+  display: grid;
+  gap: 4px;
+}
+
+.manager-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 10px;
+}

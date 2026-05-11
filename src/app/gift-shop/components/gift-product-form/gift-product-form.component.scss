@@ -1,0 +1,46 @@
+.gift-form {
+  display: block;
+}
+
+.form-grid {
+  display: grid;
+  gap: 10px;
+}
+
+.field-error {
+  color: #c62828;
+  font-size: 0.9rem;
+  padding: 0 12px;
+}
+
+.array-block {
+  display: grid;
+  gap: 10px;
+  padding: 12px;
+  border: 1px solid #dfe7ef;
+  border-radius: 8px;
+}
+
+.array-title {
+  font-weight: 700;
+}
+
+.array-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 8px;
+  align-items: center;
+}
+
+.form-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 14px;
+}
+
+@media (max-width: 640px) {
+  .array-row {
+    grid-template-columns: 1fr;
+  }
+}
