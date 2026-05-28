@@ -230,8 +230,16 @@ export class GiftProductFormComponent implements OnInit, OnChanges {
     this.clearTypeValidators();
 
     if (this.currentType === 'giftSet') {
+      if (!this.itemNames.length) {
+        this.addSetItem();
+      }
+
       this.form.get('theme')?.setValidators([Validators.required, Validators.minLength(3)]);
       this.itemNames.setValidators([Validators.required, Validators.minLength(1)]);
+    }
+
+    if (this.currentType !== 'giftSet') {
+      this.itemNames.clear();
     }
 
     if (this.currentType === 'postcard') {
