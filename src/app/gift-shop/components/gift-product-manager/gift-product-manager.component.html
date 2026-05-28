@@ -22,7 +22,7 @@
     @if (editingProductId === product.id) {
       <app-gift-product-form
         mode="edit"
-        [products]="products"
+        [products]="productsForValidation"
         [initialProduct]="product"
         (productSaved)="saveEdit($event)"
         (formCancelled)="cancelEdit()">

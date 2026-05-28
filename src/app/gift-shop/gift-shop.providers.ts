@@ -11,6 +11,7 @@ import { GiftCatalogService } from './services/gift-catalog.service';
 import { GiftOrderService } from './services/gift-order.service';
 import { GiftPackagingService } from './services/gift-packaging.service';
 import { GiftProductFactoryService } from './services/gift-product-factory.service';
+import { GiftCategoryFilterService } from './services/gift-category-filter.service';
 import { LocalGiftJsonDataSourceService } from './services/local-gift-json-data-source.service';
 import { GiftPriceValidatorService } from './validators/gift-price-validator.service';
 import { GiftTitleValidatorService } from './validators/gift-title-validator.service';
@@ -21,6 +22,7 @@ export function provideGiftShop(): Provider[] {
     GiftOrderService,
     GiftPackagingService,
     GiftProductFactoryService,
+    GiftCategoryFilterService,
     GiftPriceValidatorService,
     GiftTitleValidatorService,
     { provide: GIFT_DATA_SOURCE, useClass: LocalGiftJsonDataSourceService },

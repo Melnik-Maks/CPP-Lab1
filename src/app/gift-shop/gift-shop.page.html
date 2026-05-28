@@ -6,9 +6,10 @@
 
 <ion-content class="ion-padding">
   <p class="intro-text">
-    Лабораторна робота №6. Магазин подарунків з реалізацією інтерфейсів і
-    принципів SOLID. Доступні товари: подарункові набори, листівки, сувеніри
-    та розширення системи без зміни фабрики — подарункові сертифікати.
+    Лабораторна робота №8. Магазин подарунків із RxJS-фільтрацією.
+    Список товарів оновлюється через BehaviorSubject: можна не вибирати
+    категорії взагалі, вибрати кілька категорій, шукати за назвою та обмежувати
+    товари за ціною.
   </p>
 
   <ion-card>
@@ -30,6 +31,69 @@
       </ion-button>
 
       <p class="status-text">{{ statusText }}</p>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>RxJS-фільтр товарів</ion-card-title>
+    </ion-card-header>
+
+    <ion-card-content>
+      <ion-item>
+        <ion-select
+          label="Категорії"
+          labelPlacement="stacked"
+          multiple="true"
+          placeholder="Усі категорії"
+          [(ngModel)]="selectedCategories"
+          (ionChange)="changeCategories($any($event).detail.value)">
+          @for (category of productCategories; track category.value) {
+            <ion-select-option [value]="category.value">
+              {{ category.label }}
+            </ion-select-option>
+          }
+        </ion-select>
+      </ion-item>
+
+      <ion-item>
+        <ion-input
+          label="Пошук за назвою"
+          labelPlacement="stacked"
+          placeholder="Наприклад: сертифікат"
+          [(ngModel)]="searchTerm"
+          (ionInput)="changeSearch($any($event).detail.value)">
+        </ion-input>
+      </ion-item>
+
+      <div class="price-filter-grid">
+        <ion-item>
+          <ion-input
+            type="number"
+            label="Ціна від"
+            labelPlacement="stacked"
+            placeholder="0"
+            [(ngModel)]="minPrice"
+            (ionInput)="changePriceFilter()">
+          </ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-input
+            type="number"
+            label="Ціна до"
+            labelPlacement="stacked"
+            placeholder="1000"
+            [(ngModel)]="maxPrice"
+            (ionInput)="changePriceFilter()">
+          </ion-input>
+        </ion-item>
+      </div>
+
+      <ion-button fill="outline" class="clear-filter-button" (click)="clearFilters()">
+        Очистити фільтри
+      </ion-button>
+
     </ion-card-content>
   </ion-card>
 
@@ -68,11 +132,11 @@
     </ion-card-header>
 
     <ion-card-content>
-      @if (products.length === 0) {
-        <p class="empty-text">Поки що товари не завантажено.</p>
+      @if (((filteredProducts$ | async) ?? []).length === 0) {
+        <p class="empty-text">За поточними фільтрами товарів немає.</p>
       }
 
-      @for (product of products; track product.id) {
+      @for (product of (filteredProducts$ | async) ?? []; track product.id) {
         <div class="product-card">
           <div class="product-head">
             <div>
@@ -112,12 +176,13 @@
 
   <ion-card>
     <ion-card-header>
-      <ion-card-title>Перегляд та редагування товарів</ion-card-title>
+      <ion-card-title>Перегляд та редагування відфільтрованих товарів</ion-card-title>
     </ion-card-header>
 
     <ion-card-content>
       <app-gift-product-manager
-        [products]="products"
+        [products]="(filteredProducts$ | async) ?? []"
+        [allProducts]="products"
         (productUpdated)="updateProduct($event)"
         (productDeleted)="deleteProduct($event)">
       </app-gift-product-manager>

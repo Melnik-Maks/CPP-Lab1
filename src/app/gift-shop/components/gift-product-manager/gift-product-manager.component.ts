@@ -13,6 +13,7 @@ import { GiftProductFormComponent } from '../gift-product-form/gift-product-form
 })
 export class GiftProductManagerComponent {
   @Input() products: GiftProduct[] = [];
+  @Input() allProducts: GiftProduct[] = [];
 
   @Output() productUpdated = new EventEmitter<GiftProductData>();
   @Output() productDeleted = new EventEmitter<string>();
@@ -38,5 +39,9 @@ export class GiftProductManagerComponent {
     }
 
     this.productDeleted.emit(productId);
+  }
+
+  get productsForValidation(): GiftProduct[] {
+    return this.allProducts.length ? this.allProducts : this.products;
   }
 }

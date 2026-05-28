@@ -19,4 +19,24 @@ describe('GiftShopPage', () => {
     expect(component).toBeTruthy();
     expect(component.packagingOptions.length).toBe(3);
   });
+
+  it('має змінювати кілька вибраних категорій для RxJS-фільтра', () => {
+    component.changeCategories(['giftCertificate', 'souvenir']);
+
+    expect(component.selectedCategories).toEqual(['giftCertificate', 'souvenir']);
+  });
+
+  it('має очищати всі фільтри', () => {
+    component.changeCategories(['giftSet']);
+    component.searchTerm = 'чай';
+    component.minPrice = 100;
+    component.maxPrice = 800;
+
+    component.clearFilters();
+
+    expect(component.selectedCategories).toEqual([]);
+    expect(component.searchTerm).toBe('');
+    expect(component.minPrice).toBeNull();
+    expect(component.maxPrice).toBeNull();
+  });
 });
