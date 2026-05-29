@@ -20,4 +20,20 @@ export class LocalGiftJsonDataSourceService implements GiftDataSource {
 
     return data as GiftProductData[];
   }
+
+  async saveProducts(): Promise<void> {
+    throw new Error('Локальний JSON доступний тільки для читання.');
+  }
+
+  async addProduct(): Promise<void> {
+    throw new Error('Локальний JSON доступний тільки для читання.');
+  }
+
+  async updateProduct(): Promise<void> {
+    throw new Error('Локальний JSON доступний тільки для читання.');
+  }
+
+  async deleteProduct(): Promise<void> {
+    throw new Error('Локальний JSON доступний тільки для читання.');
+  }
 }

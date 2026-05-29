@@ -6,10 +6,9 @@
 
 <ion-content class="ion-padding">
   <p class="intro-text">
-    Лабораторна робота №8. Магазин подарунків із RxJS-фільтрацією.
-    Список товарів оновлюється через BehaviorSubject: можна не вибирати
-    категорії взагалі, вибрати кілька категорій, шукати за назвою та обмежувати
-    товари за ціною.
+    Лабораторна робота №9. Магазин подарунків із Firebase Realtime Database.
+    Дані завантажуються з NoSQL БД, зберігаються після додавання, редагування
+    та видалення, а список можна фільтрувати через RxJS.
   </p>
 
   <ion-card>
@@ -20,14 +19,18 @@
     <ion-card-content>
       <ion-item>
         <ion-input
-          label="Джерело JSON"
+          label="Шлях у Firebase Realtime Database"
           labelPlacement="stacked"
-          [(ngModel)]="dataUrl">
+          [(ngModel)]="databasePath">
         </ion-input>
       </ion-item>
 
       <ion-button expand="block" (click)="loadProducts()">
-        Завантажити товари
+        Зчитати товари з Firebase
+      </ion-button>
+
+      <ion-button expand="block" fill="outline" (click)="saveCatalogToFirebase()">
+        Зберегти поточний каталог у Firebase
       </ion-button>
 
       <p class="status-text">{{ statusText }}</p>

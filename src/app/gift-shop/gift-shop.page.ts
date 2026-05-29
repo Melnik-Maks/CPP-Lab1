@@ -60,7 +60,7 @@ export class GiftShopPage {
   group = 'КН-31';
   variant = 'Варіант 9';
 
-  dataUrl = 'assets/gift-products.json';
+  databasePath = 'gift-products';
   products: GiftProduct[] = [];
   readonly filteredProducts$;
   packagingOptions: PackagingStrategy[] = [];
@@ -92,7 +92,7 @@ export class GiftShopPage {
 
   async loadProducts(): Promise<void> {
     try {
-      this.products = await this.catalogService.loadCatalog(this.dataUrl);
+      this.products = await this.catalogService.loadCatalog(this.databasePath);
       this.orderItems = [];
       this.selectedPackaging = {};
 
@@ -121,13 +121,26 @@ export class GiftShopPage {
     }
   }
 
-  addProduct(data: GiftProductData): void {
+  async saveCatalogToFirebase(): Promise<void> {
+    try {
+      await this.catalogService.saveProducts(
+        this.databasePath,
+        this.products.map((product) => this.toProductData(product))
+      );
+      this.statusText = `У Firebase збережено ${this.products.length} товарів.`;
+    } catch (error: any) {
+      this.statusText = 'Помилка: ' + (error?.message ?? error);
+    }
+  }
+
+  async addProduct(data: GiftProductData): Promise<void> {
     if (this.products.some((product) => product.id === data.id)) {
       this.statusText = `Помилка: товар із кодом "${data.id}" уже існує.`;
       return;
     }
 
     try {
+      await this.catalogService.addProduct(this.databasePath, data);
       const product = this.productFactory.createProduct(data);
       const defaultPackagingCode = this.packagingOptions[0]?.code ?? '';
 
@@ -144,8 +157,9 @@ export class GiftShopPage {
     }
   }
 
-  updateProduct(data: GiftProductData): void {
+  async updateProduct(data: GiftProductData): Promise<void> {
     try {
+      await this.catalogService.updateProduct(this.databasePath, data);
       const product = this.productFactory.createProduct(data);
       this.products = this.products.map((item) => (item.id === product.id ? product : item));
       this.ensureCategoryVisible(product.type as GiftCategoryType);
@@ -156,7 +170,14 @@ export class GiftShopPage {
     }
   }
 
-  deleteProduct(productId: string): void {
+  async deleteProduct(productId: string): Promise<void> {
+    try {
+      await this.catalogService.deleteProduct(this.databasePath, productId);
+    } catch (error: any) {
+      this.statusText = 'Помилка: ' + (error?.message ?? error);
+      return;
+    }
+
     this.products = this.products.filter((product) => product.id !== productId);
     this.orderItems = this.orderItems.filter((item) => item.productId !== productId);
 
@@ -219,5 +240,46 @@ export class GiftShopPage {
 
   private syncFilteredProducts(): void {
     this.categoryFilterService.setProducts(this.products);
+  }
+
+  private toProductData(product: GiftProduct): GiftProductData {
+    const source = product as any;
+    const commonData = {
+      id: product.id,
+      type: product.type,
+      title: product.title,
+      basePrice: product.basePrice
+    };
+
+    if (product.type === 'giftSet') {
+      return {
+        ...commonData,
+        itemCount: source.itemCount,
+        itemNames: source.itemNames ?? [],
+        theme: source.theme
+      };
+    }
+
+    if (product.type === 'postcard') {
+      return {
+        ...commonData,
+        occasion: source.occasion,
+        message: source.message
+      };
+    }
+
+    if (product.type === 'souvenir') {
+      return {
+        ...commonData,
+        material: source.material,
+        isFragile: source.isFragile
+      };
+    }
+
+    return {
+      ...commonData,
+      recipientName: source.recipientName,
+      deliveryType: source.deliveryType
+    };
   }
 }

@@ -12,7 +12,7 @@ import { GiftOrderService } from './services/gift-order.service';
 import { GiftPackagingService } from './services/gift-packaging.service';
 import { GiftProductFactoryService } from './services/gift-product-factory.service';
 import { GiftCategoryFilterService } from './services/gift-category-filter.service';
-import { LocalGiftJsonDataSourceService } from './services/local-gift-json-data-source.service';
+import { FirebaseGiftDataSourceService } from './services/firebase-gift-data-source.service';
 import { GiftPriceValidatorService } from './validators/gift-price-validator.service';
 import { GiftTitleValidatorService } from './validators/gift-title-validator.service';
 
@@ -25,7 +25,7 @@ export function provideGiftShop(): Provider[] {
     GiftCategoryFilterService,
     GiftPriceValidatorService,
     GiftTitleValidatorService,
-    { provide: GIFT_DATA_SOURCE, useClass: LocalGiftJsonDataSourceService },
+    { provide: GIFT_DATA_SOURCE, useClass: FirebaseGiftDataSourceService },
     { provide: GIFT_PRODUCT_CREATORS, useClass: GiftSetCreator, multi: true },
     { provide: GIFT_PRODUCT_CREATORS, useClass: PostcardCreator, multi: true },
     { provide: GIFT_PRODUCT_CREATORS, useClass: SouvenirCreator, multi: true },
