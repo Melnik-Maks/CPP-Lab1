@@ -3,7 +3,7 @@
 }
 
 @for (product of products; track product.id) {
-  <div class="manager-row">
+  <div class="manager-row" [class.max-price-product]="isMaxPriceProduct(product)">
     <div class="manager-head">
       <div>
         <div class="manager-title">{{ product.title }}</div>

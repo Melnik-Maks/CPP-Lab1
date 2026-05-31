@@ -73,7 +73,7 @@
       }
 
       @for (product of products; track product.id) {
-        <div class="product-card">
+        <div class="product-card" [class.max-price-product]="isMaxPriceProduct(product)">
           <div class="product-head">
             <div>
               <div class="product-title">{{ product.title }}</div>

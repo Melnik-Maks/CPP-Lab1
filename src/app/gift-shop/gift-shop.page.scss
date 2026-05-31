@@ -34,6 +34,11 @@
   background: linear-gradient(180deg, #ffffff 0%, #f6f9fc 100%);
 }
 
+.product-card.max-price-product {
+  border-color: #d68a00;
+  background: #fff7df;
+}
+
 .product-head {
   display: flex;
   justify-content: space-between;

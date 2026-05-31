@@ -7,8 +7,20 @@
   border-bottom: 1px solid #dde6ed;
 }
 
+.manager-row.max-price-product {
+  padding: 14px;
+  border: 1px solid #d68a00;
+  border-radius: 10px;
+  margin-bottom: 10px;
+  background: #fff7df;
+}
+
 .manager-row:last-child {
   border-bottom: none;
+}
+
+.manager-row.max-price-product:last-child {
+  border-bottom: 1px solid #d68a00;
 }
 
 .manager-head {

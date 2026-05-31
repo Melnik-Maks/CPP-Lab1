@@ -112,13 +112,18 @@ export class GiftShopPage {
     try {
       const product = this.productFactory.createProduct(data);
       const defaultPackagingCode = this.packagingOptions[0]?.code ?? '';
+      const isMaxPriceProduct =
+        this.products.length === 0 ||
+        product.basePrice >= Math.max(...this.products.map((item) => item.basePrice));
 
       this.products = [...this.products, product];
       this.selectedPackaging = {
         ...this.selectedPackaging,
         [product.id]: defaultPackagingCode
       };
-      this.statusText = `Додано новий товар "${product.title}".`;
+      this.statusText = isMaxPriceProduct
+        ? `Додано новий товар "${product.title}". Він має максимальну ціну.`
+        : `Додано новий товар "${product.title}".`;
     } catch (error: any) {
       this.statusText = 'Помилка: ' + (error?.message ?? error);
     }
@@ -154,5 +159,10 @@ export class GiftShopPage {
 
   formatPrice(value: number): string {
     return `${value.toFixed(2)} грн`;
+  }
+
+  isMaxPriceProduct(product: GiftProduct): boolean {
+    const maxPrice = Math.max(...this.products.map((item) => item.basePrice));
+    return product.basePrice === maxPrice;
   }
 }

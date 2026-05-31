@@ -39,4 +39,9 @@ export class GiftProductManagerComponent {
 
     this.productDeleted.emit(productId);
   }
+
+  isMaxPriceProduct(product: GiftProduct): boolean {
+    const maxPrice = Math.max(...this.products.map((item) => item.basePrice));
+    return product.basePrice === maxPrice;
+  }
 }

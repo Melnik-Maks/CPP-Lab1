@@ -50,8 +50,8 @@ export class GiftProductFormComponent implements OnInit, OnChanges {
   @Output() formCancelled = new EventEmitter<void>();
 
   readonly productTypes: Array<{ value: GiftProductType; label: string }> = [
-    { value: 'giftSet', label: 'Подарунковий набір' },
     { value: 'postcard', label: 'Листівка' },
+    { value: 'giftSet', label: 'Подарунковий набір' },
     { value: 'souvenir', label: 'Сувенір' },
     { value: 'giftCertificate', label: 'Подарунковий сертифікат' }
   ];
