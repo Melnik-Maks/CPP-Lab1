@@ -1,12 +1,13 @@
 export const environment = {
   production: false,
   firebase: {
-    apiKey: 'PASTE_FIREBASE_API_KEY_HERE',
-    authDomain: 'PASTE_PROJECT_ID.firebaseapp.com',
-    databaseURL: 'https://PASTE_PROJECT_ID-default-rtdb.europe-west1.firebasedatabase.app',
-    projectId: 'PASTE_PROJECT_ID',
-    storageBucket: 'PASTE_PROJECT_ID.appspot.com',
-    messagingSenderId: 'PASTE_MESSAGING_SENDER_ID',
-    appId: 'PASTE_FIREBASE_APP_ID'
+      apiKey: "AIzaSyAXV_6OmYsak_b7vQywYOGcFI2Urff6oU0",
+      authDomain: "lab9-37bcb.firebaseapp.com",
+      databaseURL: "https://lab9-37bcb-default-rtdb.europe-west1.firebasedatabase.app",
+      projectId: "lab9-37bcb",
+      storageBucket: "lab9-37bcb.firebasestorage.app",
+      messagingSenderId: "484022409521",
+      appId: "1:484022409521:web:1c76086dceda8ddefe3810",
+      measurementId: "G-3G4MC4FLDQ"
   }
 };
