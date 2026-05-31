@@ -8,8 +8,7 @@
   <p class="intro-text">
     Лабораторна робота №8. Магазин подарунків із RxJS-фільтрацією.
     Список товарів оновлюється через BehaviorSubject: можна не вибирати
-    категорії взагалі, вибрати кілька категорій, шукати за назвою та обмежувати
-    товари за ціною.
+    категорії взагалі, вибрати кілька категорій та обмежувати товари за ціною.
   </p>
 
   <ion-card>
@@ -36,7 +35,7 @@
 
   <ion-card>
     <ion-card-header>
-      <ion-card-title>RxJS-фільтр товарів</ion-card-title>
+      <ion-card-title>Фільтр товарів</ion-card-title>
     </ion-card-header>
 
     <ion-card-content>
@@ -54,16 +53,6 @@
             </ion-select-option>
           }
         </ion-select>
-      </ion-item>
-
-      <ion-item>
-        <ion-input
-          label="Пошук за назвою"
-          labelPlacement="stacked"
-          placeholder="Наприклад: сертифікат"
-          [(ngModel)]="searchTerm"
-          (ionInput)="changeSearch($any($event).detail.value)">
-        </ion-input>
       </ion-item>
 
       <div class="price-filter-grid">

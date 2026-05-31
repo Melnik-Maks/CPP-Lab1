@@ -41,21 +41,6 @@ describe('GiftCategoryFilterService', () => {
     });
   });
 
-  it('має додатково фільтрувати товари за назвою', (done) => {
-    service.setProducts([
-      new GiftSet('set-1', 'Набір чаю', 700, 2, 'чай', ['чай', 'мед']),
-      new GiftSet('set-2', 'Набір кави', 800, 2, 'кава', ['кава', 'печиво'])
-    ]);
-
-    service.setSearchTerm('кави');
-
-    service.filteredProducts$.subscribe((products) => {
-      expect(products.length).toBe(1);
-      expect(products[0].title).toBe('Набір кави');
-      done();
-    });
-  });
-
   it('має фільтрувати товари за діапазоном ціни', (done) => {
     service.setProducts([
       new Postcard('card-1', 'Листівка', 40, 'свято', 'Вітаю зі святом'),

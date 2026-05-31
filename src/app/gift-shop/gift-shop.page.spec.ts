@@ -28,14 +28,12 @@ describe('GiftShopPage', () => {
 
   it('має очищати всі фільтри', () => {
     component.changeCategories(['giftSet']);
-    component.searchTerm = 'чай';
     component.minPrice = 100;
     component.maxPrice = 800;
 
     component.clearFilters();
 
     expect(component.selectedCategories).toEqual([]);
-    expect(component.searchTerm).toBe('');
     expect(component.minPrice).toBeNull();
     expect(component.maxPrice).toBeNull();
   });

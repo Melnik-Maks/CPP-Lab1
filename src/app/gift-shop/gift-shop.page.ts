@@ -65,7 +65,6 @@ export class GiftShopPage {
   readonly filteredProducts$;
   packagingOptions: PackagingStrategy[] = [];
   selectedCategories: GiftCategoryType[] = [];
-  searchTerm = '';
   minPrice: number | null = null;
   maxPrice: number | null = null;
   selectedPackaging: Record<string, string> = {};
@@ -180,11 +179,6 @@ export class GiftShopPage {
     this.categoryFilterService.setSelectedCategories(this.selectedCategories);
   }
 
-  changeSearch(searchTerm: string): void {
-    this.searchTerm = searchTerm ?? '';
-    this.categoryFilterService.setSearchTerm(this.searchTerm);
-  }
-
   changePriceFilter(): void {
     this.categoryFilterService.setPriceFilter({
       minPrice: this.minPrice,
@@ -194,7 +188,6 @@ export class GiftShopPage {
 
   clearFilters(): void {
     this.selectedCategories = [];
-    this.searchTerm = '';
     this.minPrice = null;
     this.maxPrice = null;
     this.categoryFilterService.clearFilters();
